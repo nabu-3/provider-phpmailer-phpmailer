@@ -1,0 +1,26 @@
+{
+    "type": "nabu-provider",
+    "name": "nabu-3/provider-phpmailer-phpmailer",
+    "description": "nabu-3 PHMailer Provider package",
+    "keywords": [ "nabu-3", "nabu", "phpmailer", "provider" ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/nabu-3/provider-phpmailer-phpmailer"
+        }
+    ],
+    "version": "0.0.1",
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "Rafael Gutierrez",
+            "email": "ragutimar@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "nabu-3/composer-installer-plugin": "~3.0",
+        "phpmailer/phpmailer": "~6.0"
+    },
+    "prefer-stable": true
+}
