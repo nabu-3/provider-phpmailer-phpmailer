@@ -20,7 +20,7 @@
     ],
     "require": {
         "nabu-3/composer-installer-plugin": "~3.0",
-        "phpmailer/phpmailer": "~6.0"
+        "phpmailer/phpmailer": "6.0.0rc4"
     },
     "prefer-stable": true
 }
