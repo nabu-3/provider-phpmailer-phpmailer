@@ -1,4 +1,5 @@
 <?php
+use providers\phpmailer\phpmailer\CPHPMailerManager;
 
 /*  Copyright 2009-2011 Rafael Gutierrez Martinez
  *  Copyright 2012-2013 Welma WEB MKT LABS, S.L.
@@ -27,5 +28,4 @@
 define ('PHPMAILER_MANAGER_KEY', 'PHPMailerManager');
 define ('PHPMAILER_PROVIDER_PATH', dirname(__FILE__));
 
-$nb_engine->traceLog(null, 'Init PHPMailer');
-$nb_application->registerManager('providers\phpmailer\phpmailer\CPHPMailerManager');
+$nb_engine->registerProviderManager(new CPHPMailerManager());

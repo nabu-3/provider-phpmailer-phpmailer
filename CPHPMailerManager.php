@@ -18,7 +18,6 @@
  */
 
 namespace providers\phpmailer\phpmailer;
-use nabu\http\app\base\CNabuHTTPApplication;
 use nabu\messaging\managers\base\CNabuMessagingManager;
 
 /**
@@ -33,9 +32,9 @@ class CPHPMailerManager extends CNabuMessagingManager
     /**
      * Default constructor.
      */
-    public function __construct(CNabuHTTPApplication $nb_application)
+    public function __construct()
     {
-        parent::__construct($nb_application);
+        parent::__construct();
 
         $this->setKey(PHPMAILER_MANAGER_KEY);
     }
