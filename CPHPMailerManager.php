@@ -18,6 +18,7 @@
  */
 
 namespace providers\phpmailer\phpmailer;
+use nabu\core\interfaces\INabuApplication;
 use nabu\messaging\managers\base\CNabuMessagingManager;
 
 /**
@@ -36,22 +37,17 @@ class CPHPMailerManager extends CNabuMessagingManager
     {
         parent::__construct();
 
-        $this->setKey(PHPMAILER_MANAGER_KEY);
+        $this->setVendorKey(PHPMAILER_VENDOR_KEY);
+        $this->setModuleKey(PHPMAILER_MODULE_KEY);
     }
 
-    /**
-     * Register the provider in current application to extend their functionalities.
-     * @return bool Returns true if enable process is succeed.
-     */
     public function enableManager()
     {
-        /*
-        $this->nb_application->registerRender(
-            (new CNabuHTTPRenderDescriptor())
-                ->setKey('HTML')
-                ->setClassName('providers\smarty\renders\CSmartyHTTPRender')
-        );
-        */
         return true;
+    }
+
+    public function registerApplication(INabuApplication $nb_application)
+    {
+        return $this;
     }
 }

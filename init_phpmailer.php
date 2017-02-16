@@ -25,6 +25,8 @@ use providers\phpmailer\phpmailer\CPHPMailerManager;
  * @package \providers\phpmailer\phpmailer
  */
 
+define ('PHPMAILER_VENDOR_KEY', 'PHPMailer');
+define ('PHPMAILER_MODULE_KEY', 'PHPMailer');
 define ('PHPMAILER_MANAGER_KEY', 'PHPMailerManager');
 define ('PHPMAILER_PROVIDER_PATH', dirname(__FILE__));
 
