@@ -50,9 +50,9 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
 
         $this->nb_messaging_account_descriptor = new CNabuProviderInterfaceDescriptor(
             $this,
-            CNabuProviderFactory::INTERFACE_MESSAGING_ACCOUNT,
-            'PHPMailerAccount',
-            'PHPMailer Account'
+            CNabuProviderFactory::INTERFACE_MESSAGING_SERVICE,
+            'PHPMailerService',
+            'PHPMailer Service'
         );
 
         $nb_engine->registerProviderInterface($this->nb_messaging_account_descriptor);
