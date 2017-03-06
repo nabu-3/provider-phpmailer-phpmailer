@@ -18,31 +18,45 @@
  */
 
 namespace providers\phpmailer\phpmailer;
+use nabu\core\CNabuEngine;
 use nabu\core\interfaces\INabuApplication;
-use nabu\messaging\managers\base\CNabuMessagingManager;
+use nabu\messaging\managers\base\CNabuMessagingModuleManagerAdapter;
+use nabu\provider\CNabuProviderFactory;
+use nabu\provider\base\CNabuProviderInterfaceDescriptor;
 
 /**
  * Class to manage PHPMailer library
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
  * @since 0.0.1
- * @version 0.0.1
+ * @version 0.0.2
  * @package \providers\phpmailer\phpmailer
  */
-class CPHPMailerManager extends CNabuMessagingManager
+class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
 {
+    /** @var CNabuProviderInterfaceDescriptor $nb_messaging_account_descriptor Messaging Account descriptor. */
+    private $nb_messaging_account_descriptor = null;
+
     /**
      * Default constructor.
      */
     public function __construct()
     {
-        parent::__construct();
-
-        $this->setVendorKey(PHPMAILER_VENDOR_KEY);
-        $this->setModuleKey(PHPMAILER_MODULE_KEY);
+        parent::__construct(PHPMAILER_VENDOR_KEY, PHPMAILER_MODULE_KEY);
     }
 
     public function enableManager()
     {
+        $nb_engine = CNabuEngine::getEngine();
+
+        $this->nb_messaging_account_descriptor = new CNabuProviderInterfaceDescriptor(
+            $this,
+            CNabuProviderFactory::INTERFACE_MESSAGING_ACCOUNT,
+            'PHPMailerAccount',
+            'PHPMailer Account'
+        );
+
+        $nb_engine->registerProviderInterface($this->nb_messaging_account_descriptor);
+
         return true;
     }
 
