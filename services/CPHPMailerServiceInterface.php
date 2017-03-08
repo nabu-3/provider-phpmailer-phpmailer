@@ -17,18 +17,18 @@
  *  limitations under the License.
  */
 
-namespace providers\phpmailer\phpmailer\accounts;
+namespace providers\phpmailer\phpmailer\services;
 use nabu\core\CNabuObject;
-use nabu\provider\interfaces\INabuProviderInterface;
+use nabu\messaging\interfaces\INabuMessagingServiceInterface;
 
 /**
- * Class to manage PHPMailer library
+ * Class to use PHPMailer as a Service Interface for Messaging.
  * @author Rafael Gutierrez <rgutierrez@wiscot.com>
  * @since 0.0.2
  * @version 0.0.2
- * @package \providers\phpmailer\phpmailer\accounts
+ * @package \providers\phpmailer\phpmailer\services
  */
-class CPHPMailerAccountInterface extends CNabuObject implements INabuProviderInterface
+class CPHPMailerServiceInterface extends CNabuObject implements INabuMessagingServiceInterface
 {
-    
+
 }
