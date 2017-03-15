@@ -22,5 +22,8 @@
         "nabu-3/composer-installer-plugin": "~3.0",
         "phpmailer/phpmailer": "~5.2"
     },
-    "prefer-stable": true
+    "require-dev": {
+        "nabu-3/composer-installer-plugin": "dev-master",
+        "phpmailer/phpmailer": "~5.2"
+    }
 }
