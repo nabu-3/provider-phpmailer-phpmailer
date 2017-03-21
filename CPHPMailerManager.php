@@ -20,9 +20,9 @@
 namespace providers\phpmailer\phpmailer;
 use nabu\core\CNabuEngine;
 use nabu\core\interfaces\INabuApplication;
+use nabu\messaging\CNabuMessagingServiceInterfaceDescriptor;
+use nabu\messaging\interfaces\INabuMessagingServiceInterface;
 use nabu\messaging\managers\base\CNabuMessagingModuleManagerAdapter;
-use nabu\provider\CNabuProviderFactory;
-use nabu\provider\base\CNabuProviderInterfaceDescriptor;
 
 /**
  * Class to manage PHPMailer library
@@ -33,7 +33,7 @@ use nabu\provider\base\CNabuProviderInterfaceDescriptor;
  */
 class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
 {
-    /** @var CNabuProviderInterfaceDescriptor $nb_messaging_account_descriptor Messaging Account descriptor. */
+    /** @var CNabuMessagingServiceInterfaceDescriptor $nb_messaging_account_descriptor Messaging Account descriptor. */
     private $nb_messaging_account_descriptor = null;
 
     /**
@@ -48,14 +48,13 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
     {
         $nb_engine = CNabuEngine::getEngine();
 
-        $this->nb_messaging_account_descriptor = new CNabuProviderInterfaceDescriptor(
+        $this->nb_messaging_service_descriptor = new CNabuMessagingServiceInterfaceDescriptor(
             $this,
-            CNabuProviderFactory::INTERFACE_MESSAGING_SERVICE,
             'PHPMailerService',
             'PHPMailer Service'
         );
 
-        $nb_engine->registerProviderInterface($this->nb_messaging_account_descriptor);
+        $nb_engine->registerProviderInterface($this->nb_messaging_service_descriptor);
 
         return true;
     }
@@ -63,5 +62,15 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
     public function registerApplication(INabuApplication $nb_application)
     {
         return $this;
+    }
+
+    public function createServiceInterface(string $name)
+    {
+
+    }
+
+    public function releaseServiceInterface(INabuMessagingServiceInterface $interface)
+    {
+        
     }
 }
