@@ -21,8 +21,10 @@ namespace providers\phpmailer\phpmailer;
 use nabu\core\CNabuEngine;
 use nabu\core\interfaces\INabuApplication;
 use nabu\messaging\CNabuMessagingServiceInterfaceDescriptor;
+use nabu\messaging\adapters\CNabuMessagingModuleManagerAdapter;
+use nabu\messaging\exceptions\ENabuMessagingException;
 use nabu\messaging\interfaces\INabuMessagingServiceInterface;
-use nabu\messaging\managers\base\CNabuMessagingModuleManagerAdapter;
+use providers\phpmailer\phpmailer\services\CPHPMailerServiceInterface;
 
 /**
  * Class to manage PHPMailer library
@@ -33,8 +35,8 @@ use nabu\messaging\managers\base\CNabuMessagingModuleManagerAdapter;
  */
 class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
 {
-    /** @var CNabuMessagingServiceInterfaceDescriptor $nb_messaging_account_descriptor Messaging Account descriptor. */
-    private $nb_messaging_account_descriptor = null;
+    /** @var CNabuMessagingServiceInterfaceDescriptor Messaging Account descriptor. */
+    private $nb_messaging_service_descriptor = null;
 
     /**
      * Default constructor.
@@ -66,11 +68,21 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
 
     public function createServiceInterface(string $name)
     {
+        $nb_engine = CNabuEngine::getEngine();
+        $fullname = __NAMESPACE__ . "\\services\\$name";
 
-    }
-
-    public function releaseServiceInterface(INabuMessagingServiceInterface $interface)
-    {
-        
+        if ($nb_engine->preloadClass($fullname)) {
+            $interface = new $fullname($this);
+            if ($this->registerServiceInterface($interface)) {
+                return $interface;
+            } else {
+                throw new ENabuMessagingException(
+                    ENabuMessagingException::ERROR_SERVICE_CANNOT_BE_INSTANTIATED,
+                    array($name)
+                );
+            }
+        } else {
+            throw new ENabuMessagingException(ENabuMessagingException::ERROR_INVALID_SERVICE_CLASS_NAME, array($name));
+        }
     }
 }
