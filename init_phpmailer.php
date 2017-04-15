@@ -19,7 +19,7 @@ use providers\phpmailer\phpmailer\CPHPMailerManager;
  */
 
 /**
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 0.0.1
  * @version 0.0.1
  * @package \providers\phpmailer\phpmailer

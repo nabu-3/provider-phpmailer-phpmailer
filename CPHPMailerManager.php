@@ -23,12 +23,10 @@ use nabu\core\interfaces\INabuApplication;
 use nabu\messaging\CNabuMessagingServiceInterfaceDescriptor;
 use nabu\messaging\adapters\CNabuMessagingModuleManagerAdapter;
 use nabu\messaging\exceptions\ENabuMessagingException;
-use nabu\messaging\interfaces\INabuMessagingServiceInterface;
-use providers\phpmailer\phpmailer\services\CPHPMailerServiceInterface;
 
 /**
  * Class to manage PHPMailer library
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 0.0.1
  * @version 0.0.2
  * @package \providers\phpmailer\phpmailer

@@ -22,7 +22,7 @@ use nabu\core\exceptions\ENabuException;
 
 /**
  * Exception Class of PHPMailer Messaging.
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 0.0.2
  * @version 0.0.2
  * @package \providers\phpmailer\phpmailer\exceptions

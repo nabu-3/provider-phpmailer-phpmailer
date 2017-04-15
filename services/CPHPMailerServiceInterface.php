@@ -26,7 +26,7 @@ use providers\phpmailer\phpmailer\exceptions\EPHPMailerException;
 
 /**
  * Class to use PHPMailer as a Service Interface for Messaging.
- * @author Rafael Gutierrez <rgutierrez@wiscot.com>
+ * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
  * @since 0.0.2
  * @version 0.0.2
  * @package \providers\phpmailer\phpmailer\services
