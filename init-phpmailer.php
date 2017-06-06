@@ -1,5 +1,4 @@
 <?php
-use providers\phpmailer\phpmailer\CPHPMailerManager;
 
 /*  Copyright 2009-2011 Rafael Gutierrez Martinez
  *  Copyright 2012-2013 Welma WEB MKT LABS, S.L.
@@ -17,6 +16,8 @@ use providers\phpmailer\phpmailer\CPHPMailerManager;
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
  */
+
+use providers\phpmailer\phpmailer\CPHPMailerManager;
 
 /**
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
