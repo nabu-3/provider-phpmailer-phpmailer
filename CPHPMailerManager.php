@@ -20,7 +20,7 @@
 namespace providers\phpmailer\phpmailer;
 use nabu\core\CNabuEngine;
 use nabu\core\interfaces\INabuApplication;
-use nabu\messaging\CNabuMessagingServiceInterfaceDescriptor;
+use nabu\messaging\descriptors\CNabuMessagingServiceInterfaceDescriptor;
 use nabu\messaging\adapters\CNabuMessagingModuleManagerAdapter;
 use nabu\messaging\exceptions\ENabuMessagingException;
 
