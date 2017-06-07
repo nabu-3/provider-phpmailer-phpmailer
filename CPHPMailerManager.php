@@ -83,4 +83,27 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
             throw new ENabuMessagingException(ENabuMessagingException::ERROR_INVALID_SERVICE_CLASS_NAME, array($name));
         }
     }
+
+    public function createTemplateRenderInterface(string $name)
+    {
+        $nb_engine = CNabuEngine::getEngine();
+        $fullname = __NAMESPACE__ . "\\templates\\renders\\$name";
+
+        if ($nb_engine->preloadClass($fullname)) {
+            $interface = new $fullname($this);
+            if ($this->registerTemplateRenderInterface($interface)) {
+                return $interface;
+            } else {
+                throw new ENabuMessagingException(
+                    ENabuMessagingException::ERROR_TEMPLATE_RENDER_CANNOT_BE_INSTANTIATED,
+                    array($name)
+                );
+            }
+        } else {
+            throw new ENabuMessagingException(
+                ENabuMessagingException::ERROR_INVALID_TEMPLATE_RENDER_CLASS_NAME,
+                array($name)
+            );
+        }
+    }
 }
