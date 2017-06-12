@@ -38,10 +38,15 @@ class EPHPMailerException extends ENabuException
      * List of all error messages defined in this exception.
      * @var array
      */
-    protected $error_messages = array(
+    private static $error_messages = array(
         EPHPMailerException::ERROR_NATIVE_CONNECTOR_ALREADY_INSTANTIATED =>
             'PHPMailer native connector already instantiated.',
         EPHPMailerException::ERROR_INSUFFICIENT_SMTP_CONNECTION_PARAMS =>
             'Insufficient STMP Connection parameters'
     );
+
+    public function __construct($code, $values = null)
+    {
+        parent::__construct(EPHPMailerException::$error_messages[$code], $code, $values);
+    }
 }
