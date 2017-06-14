@@ -24,6 +24,8 @@ use nabu\messaging\descriptors\CNabuMessagingServiceInterfaceDescriptor;
 use nabu\messaging\adapters\CNabuMessagingModuleManagerAdapter;
 use nabu\messaging\exceptions\ENabuMessagingException;
 
+require 'phpmailer/phpmailer/PHPMailerAutoload.php';
+
 /**
  * Class to manage PHPMailer library
  * @author Rafael Gutierrez <rgutierrez@nabu-3.com>
