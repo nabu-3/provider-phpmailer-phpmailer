@@ -22,7 +22,6 @@ use nabu\core\CNabuEngine;
 use nabu\core\interfaces\INabuApplication;
 use nabu\messaging\descriptors\CNabuMessagingServiceInterfaceDescriptor;
 use nabu\messaging\adapters\CNabuMessagingModuleManagerAdapter;
-use nabu\messaging\exceptions\ENabuMessagingException;
 
 require 'phpmailer/phpmailer/PHPMailerAutoload.php';
 
@@ -53,7 +52,9 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
         $this->nb_messaging_service_descriptor = new CNabuMessagingServiceInterfaceDescriptor(
             $this,
             'PHPMailerService',
-            'PHPMailer Service'
+            'PHPMailer Service',
+            __NAMESPACE__,
+            'CPHPMailerSMTPServiceInterface'
         );
 
         $nb_engine->registerProviderInterface($this->nb_messaging_service_descriptor);
@@ -64,48 +65,5 @@ class CPHPMailerManager extends CNabuMessagingModuleManagerAdapter
     public function registerApplication(INabuApplication $nb_application)
     {
         return $this;
-    }
-
-    public function createServiceInterface(string $name)
-    {
-        $nb_engine = CNabuEngine::getEngine();
-        $fullname = __NAMESPACE__ . "\\services\\$name";
-
-        if ($nb_engine->preloadClass($fullname)) {
-            $interface = new $fullname($this);
-            if ($this->registerServiceInterface($interface)) {
-                return $interface;
-            } else {
-                throw new ENabuMessagingException(
-                    ENabuMessagingException::ERROR_SERVICE_CANNOT_BE_INSTANTIATED,
-                    array($name)
-                );
-            }
-        } else {
-            throw new ENabuMessagingException(ENabuMessagingException::ERROR_INVALID_SERVICE_CLASS_NAME, array($name));
-        }
-    }
-
-    public function createTemplateRenderInterface(string $name)
-    {
-        $nb_engine = CNabuEngine::getEngine();
-        $fullname = __NAMESPACE__ . "\\templates\\renders\\$name";
-
-        if ($nb_engine->preloadClass($fullname)) {
-            $interface = new $fullname($this);
-            if ($this->registerTemplateRenderInterface($interface)) {
-                return $interface;
-            } else {
-                throw new ENabuMessagingException(
-                    ENabuMessagingException::ERROR_TEMPLATE_RENDER_CANNOT_BE_INSTANTIATED,
-                    array($name)
-                );
-            }
-        } else {
-            throw new ENabuMessagingException(
-                ENabuMessagingException::ERROR_INVALID_TEMPLATE_RENDER_CLASS_NAME,
-                array($name)
-            );
-        }
     }
 }
