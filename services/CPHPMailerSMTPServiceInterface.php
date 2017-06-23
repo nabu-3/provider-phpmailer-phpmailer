@@ -221,6 +221,11 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
                             'address' => $parts[0],
                             'name' => $parts[1]
                         );
+                    } elseif (count($parts) === 0) {
+                        $retval[] = array(
+                            'address' => $address,
+                            'name' => null
+                        );
                     }
                 }
             } else {
@@ -264,6 +269,8 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
         } else {
             $retval = null;
         }
+
+        error_log(print_r($retval, true));
 
         return $retval;
     }
