@@ -270,8 +270,6 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
             $retval = null;
         }
 
-        error_log(print_r($retval, true));
-
         return $retval;
     }
 }
