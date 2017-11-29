@@ -71,8 +71,6 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
     {
         $attributes = $nb_messaging_service->getAttributes();
 
-        $this->phpmailer_native->SMTPDebug = 0;
-
         if (is_array($attributes) &&
             is_string($host = $this->getAttribute($attributes, 'smtp_host')) &&
             is_integer($port = $this->getAttribute($attributes, 'smtp_port')) &&
@@ -80,14 +78,27 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
             is_string($from_mailbox = $this->getAttribute($attributes, 'from_mailbox'))
 
         ) {
+            if (($smtp_debug = $this->getAttribute($attributes, 'smtp_debug')) &&
+                is_numeric($smtp_debug) && nb_isBetween($smtp_debug, 0, 4)
+            ) {
+                $this->phpmailer_native->SMTPDebug = \SMTP::DEBUG_SERVER;
+                $this->phpmailer_native->Debugoutput = function($str, $level) { error_log ("debug level $level; message: $str");};
+            } else {
+                $this->phpmailer_native->SMTPDebug = 0;
+            }
+
             $this->phpmailer_native->Host = $host;
             $this->phpmailer_native->Port = $port;
 
-            if (is_bool($use_tls = (bool)$this->getAttribute($attributes, 'smtp_use_tls')) &&
-                is_string($user = $this->getAttribute($attributes, 'smtp_user')) &&
+            if (is_bool($use_tls = (bool)$this->getAttribute($attributes, 'smtp_use_tls'))) {
+                $this->phpmailer_native->SMTPSecure = ($use_tls ? 'tls' : '');
+            } else {
+                $this->phpmailer_native->SMTPSecure = false;
+            }
+
+            if (is_string($user = $this->getAttribute($attributes, 'smtp_user')) &&
                 is_string($pass = $this->getAttribute($attributes, 'smtp_password'))
             ) {
-                $this->phpmailer_native->SMTPSecure = ($use_tls ? 'tls' : '');
                 $this->phpmailer_native->SMTPAuth = true;
                 $this->phpmailer_native->Username = $user;
                 $this->phpmailer_native->Password = $pass;
