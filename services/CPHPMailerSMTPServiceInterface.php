@@ -19,6 +19,7 @@
  */
 
 namespace providers\phpmailer\phpmailer\services;
+use nabu\core\CNabuEngine;
 use nabu\core\CNabuObject;
 use nabu\data\messaging\CNabuMessagingService;
 use nabu\data\security\CNabuUser;
@@ -165,6 +166,10 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
             $this->error_message = false;
         } else {
             $this->error_message = $this->phpmailer_native->ErrorInfo;
+        }
+
+        if ($this->error_message) {
+            CNabuEngine::getEngine()->errorLog($this->error_message);
         }
 
         return $this->error_message ? 1 : 0;
