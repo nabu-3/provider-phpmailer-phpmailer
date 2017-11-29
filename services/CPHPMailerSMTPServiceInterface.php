@@ -81,7 +81,7 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
             if (($smtp_debug = $this->getAttribute($attributes, 'smtp_debug')) &&
                 is_numeric($smtp_debug) && nb_isBetween($smtp_debug, 0, 4)
             ) {
-                $this->phpmailer_native->SMTPDebug = \SMTP::DEBUG_SERVER;
+                $this->phpmailer_native->SMTPDebug = $smtp_debug;
                 $this->phpmailer_native->Debugoutput = function($str, $level) { error_log ("debug level $level; message: $str");};
             } else {
                 $this->phpmailer_native->SMTPDebug = 0;
@@ -90,10 +90,11 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
             $this->phpmailer_native->Host = $host;
             $this->phpmailer_native->Port = $port;
 
-            if (is_bool($use_tls = (bool)$this->getAttribute($attributes, 'smtp_use_tls'))) {
+            if (is_bool($use_tls = (bool)$this->getAttribute($attributes, 'smtp_use_tls')) && $use_tls) {
                 $this->phpmailer_native->SMTPSecure = ($use_tls ? 'tls' : '');
             } else {
                 $this->phpmailer_native->SMTPSecure = false;
+                $this->phpmailer_native->SMTPAutoTLS = 0;
             }
 
             if (is_string($user = $this->getAttribute($attributes, 'smtp_user')) &&
@@ -124,6 +125,8 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
         } else {
             $this->phpmailer_native->CharSet = NABU_CHARSET;
         }
+
+        error_log(print_r($this->phpmailer_native, true));
     }
 
     public function send($to, $cc, $bcc, $subject, $body_html, $body_text, $attachments) : int
