@@ -1,7 +1,7 @@
 {
     "type": "nabu-provider",
     "name": "nabu-3/provider-phpmailer-phpmailer",
-    "description": "nabu-3 PHMailer Provider package",
+    "description": "nabu-3 PHPMailer Provider package",
     "keywords": [ "nabu-3", "nabu", "phpmailer", "provider" ],
     "repositories": [
         {
