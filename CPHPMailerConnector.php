@@ -137,7 +137,6 @@ class CPHPMailerConnector extends \cms\emailing\CCMSEMailingConnectorAdapter {
             }
         }
 
-        error_log($this->phpmailer->MessageDate);
         if ($this->phpmailer->send()) {
             $this->error = false;
         } else {

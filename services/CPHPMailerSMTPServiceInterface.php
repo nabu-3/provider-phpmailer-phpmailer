@@ -125,8 +125,6 @@ class CPHPMailerSMTPServiceInterface extends CNabuObject implements INabuMessagi
         } else {
             $this->phpmailer_native->CharSet = NABU_CHARSET;
         }
-
-        error_log(print_r($this->phpmailer_native, true));
     }
 
     public function send($to, $cc, $bcc, $subject, $body_html, $body_text, $attachments) : int
